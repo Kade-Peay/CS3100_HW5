@@ -33,7 +33,7 @@ public class TaskMRU implements Runnable {
             {
                 if (!s.contains(this.sequence[page]))
                 {
-                    int mru = Integer.MAX_VALUE; int val=Integer.MIN_VALUE;               
+                    int mru = Integer.MIN_VALUE; int val=Integer.MAX_VALUE;               
                     Iterator<Integer> itr = s.iterator();
                      
                     while (itr.hasNext()) {
