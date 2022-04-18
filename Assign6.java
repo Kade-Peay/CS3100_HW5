@@ -24,19 +24,22 @@ public class Assign6 {
             for(int j = 0; j < SEQUENCE_LENGTH; j++){ // Generate a page reference sequence of length 1000
                 sequence[j] = rand.nextInt(maxPageReference); // page references from 1 to 250
             }
-            TaskFIFO fifo = new TaskFIFO(sequence, maxMemoryFrames, maxPageReference, pageFaults, i); // create a FIFO simulation task to simulate FIFO page replacement
-            TaskLRU lru = new TaskLRU(sequence, maxMemoryFrames, maxPageReference, pageFaults, i); // Create a LRU simulation task to simulate LRU page replacement
-            TaskMRU mru = new TaskMRU(sequence, maxMemoryFrames, maxPageReference, pageFaults, i); // Create a MRU simulation task to simulate MRU page replacement
+            TaskFIFO fifo = new TaskFIFO(sequence, i, maxPageReference, pageFaults); // create a FIFO simulation task to simulate FIFO page replacement
+            TaskLRU lru = new TaskLRU(sequence, i, maxPageReference, pageFaults); // Create a LRU simulation task to simulate LRU page replacement
+            TaskMRU mru = new TaskMRU(sequence, i, maxPageReference, pageFaults); // Create a MRU simulation task to simulate MRU page replacement
             
             // TODO: use a thread pool ('Executors.newFixedThreadPool') to execute individual simulation tasks.
             // Create as many workers as there are processors available on the system.
             ExecutorService executorService = Executors.newFixedThreadPool(nThreads); // Add these tasks to the thread pool for execution
             fifo.run();
+            lru.run();
         }
+        testLRU();
+        testMRU();
 
-        for (int page : pageFaults) {
-            System.out.println(page);
-        }
+        // for (int page : pageFaults) {
+        //     System.out.println(page);
+        // }
 
 
         // Print total time to do all simulations
@@ -44,46 +47,47 @@ public class Assign6 {
         System.out.printf("Simulation took %d ms\n", (end - start)); 
     }
 
-    // public static void testLRU() {
-    //     int[] sequence1 = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-    //     int[] sequence2 = {1, 2, 1, 3, 2, 1, 2, 3, 4};
-    //     int[] pageFaults = new int[4];  // 4 because maxMemoryFrames is 3
+    public static void testLRU() {
+        int[] sequence1 = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int[] sequence2 = {1, 2, 1, 3, 2, 1, 2, 3, 4};
+        int MAX_PAGE_REFERENCE = 250;
+        int[] pageFaults = new int[4];  // 4 because maxMemoryFrames is 3
     
-    //     // Replacement should be: 1, 2, 3, 4, 5, 6, 7, 8
-    //     // Page Faults should be 9
-    //     // (new TaskLRU(sequence1, 1, MAX_PAGE_REFERENCE, pageFaults)).run();
-    //     System.out.printf("Page Faults: %d\n", pageFaults[1]);
+        // Replacement should be: 1, 2, 3, 4, 5, 6, 7, 8
+        // Page Faults should be 9
+        (new TaskLRU(sequence1, 1, MAX_PAGE_REFERENCE, pageFaults)).run();
+        System.out.printf("Page Faults: %d\n", pageFaults[1]);
     
-    //     // Replacement should be: 2, 1, 3, 1, 2
-    //     // Page Faults should be 7
-    //     // (new TaskLRU(sequence2, 2, MAX_PAGE_REFERENCE, pageFaults)).run();
-    //     System.out.printf("Page Faults: %d\n", pageFaults[2]);
+        // Replacement should be: 2, 1, 3, 1, 2
+        // Page Faults should be 7
+        (new TaskLRU(sequence2, 2, MAX_PAGE_REFERENCE, pageFaults)).run();
+        System.out.printf("Page Faults: %d\n", pageFaults[2]);
     
-    //     // Replacement should be: 1
-    //     // Page Faults should be 4
-    //     // (new TaskLRU(sequence2, 3, MAX_PAGE_REFERENCE, pageFaults)).run();
-    //     System.out.printf("Page Faults: %d\n", pageFaults[3]);
-    // }
+        // Replacement should be: 1
+        // Page Faults should be 4
+        (new TaskLRU(sequence2, 3, MAX_PAGE_REFERENCE, pageFaults)).run();
+        System.out.printf("Page Faults: %d\n", pageFaults[3]);
+    }
 
-    // public static void testMRU() {
-    //     int[] sequence1 = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-    //     int[] sequence2 = {1, 2, 1, 3, 2, 1, 2, 3, 4};
-    //     int[] pageFaults = new int[4];  // 4 because maxMemoryFrames is 3
+    public static void testMRU() {
+        int[] sequence1 = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int[] sequence2 = {1, 2, 1, 3, 2, 1, 2, 3, 4};
+        int[] pageFaults = new int[4];  // 4 because maxMemoryFrames is 3
     
-    //     // Replacement should be: 1, 2, 3, 4, 5, 6, 7, 8
-    //     // Page Faults should be 9
-    //     // (new TaskMRU(sequence1, 1, MAX_PAGE_REFERENCE, pageFaults)).run();
-    //     System.out.printf("Page Faults: %d\n", pageFaults[1]);
+        // Replacement should be: 1, 2, 3, 4, 5, 6, 7, 8
+        // Page Faults should be 9
+        // (new TaskMRU(sequence1, 1, MAX_PAGE_REFERENCE, pageFaults)).run();
+        System.out.printf("Page Faults: %d\n", pageFaults[1]);
     
-    //     // Replacement should be: 1, 2, 1, 3
-    //     // Page Faults should be 6
-    //     // (new TaskMRU(sequence2, 2, MAX_PAGE_REFERENCE, pageFaults)).run();
-    //     System.out.printf("Page Faults: %d\n", pageFaults[2]);
+        // Replacement should be: 1, 2, 1, 3
+        // Page Faults should be 6
+        // (new TaskMRU(sequence2, 2, MAX_PAGE_REFERENCE, pageFaults)).run();
+        System.out.printf("Page Faults: %d\n", pageFaults[2]);
     
-    //     // Replacement should be: 3
-    //     // Page Faults should be 4
-    //     // (new TaskMRU(sequence2, 3, MAX_PAGE_REFERENCE, pageFaults)).run();
-    //     System.out.printf("Page Faults: %d\n", pageFaults[3]);
-    // }
+        // Replacement should be: 3
+        // Page Faults should be 4
+        // (new TaskMRU(sequence2, 3, MAX_PAGE_REFERENCE, pageFaults)).run();
+        System.out.printf("Page Faults: %d\n", pageFaults[3]);
+    }
     
 }

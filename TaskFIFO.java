@@ -5,14 +5,12 @@ public class TaskFIFO implements Runnable {
     int maxMemoryFrames;
     int maxPageReference;
     int[] pageFaults;
-    int iteration;
 
-    public TaskFIFO(int[] sequence, int maxMemoryFrames, int maxPageReference, int[] pageFaults, int iteration){
+    public TaskFIFO(int[] sequence, int maxMemoryFrames, int maxPageReference, int[] pageFaults){
         this.sequence = sequence; 
         this.maxMemoryFrames = maxMemoryFrames;
         this.maxPageReference = maxPageReference;
         this.pageFaults = pageFaults;
-        this.iteration = iteration;
     }
 
     @Override
@@ -39,7 +37,6 @@ public class TaskFIFO implements Runnable {
             }
         }
 
-        this.pageFaults[this.iteration] = page_faults;
-        // return page_faults; // at this simulation, save the amount of page faults
+        this.pageFaults[maxMemoryFrames] = page_faults;
     }
 }
