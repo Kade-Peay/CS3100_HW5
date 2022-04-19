@@ -1,10 +1,10 @@
 import java.util.*;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Assign6 {
     public static void main(String[] args) {
-        long start = System.currentTimeMillis();
         
         Random rand = new Random();
         final int SEQUENCE_LENGTH = 1000;
@@ -12,40 +12,37 @@ public class Assign6 {
         int maxMemoryFrames = 100; // (input) the number of frames of memory available
         int maxPageReference = 250; // (input) the maximum page reference possible in the sequence        
         int[] pageFaults = new int[maxMemoryFrames]; // (output) an array used to record the number of page faults that occur each simulation of some number of frames.
+        ExecutorService executor = Executors.newFixedThreadPool(nThreads);
         
+                
+        long start = System.currentTimeMillis();
         
-        /* 
-        Each call to the 'run' method of a task results in storing the number of page faults for the task using something like: 
-        'pageFaults[maxMemoryFrames] = pageFaults' (where 'pageFaults' is the number of page faults your code detects)
-        */
-        
-        for(int i = 0; i < maxMemoryFrames; i++) { // for memory frames ranging from 1 to 100
-            int[] sequence = new int[SEQUENCE_LENGTH]; // (input) a randomly generated sequence of page refrences
-            for(int j = 0; j < SEQUENCE_LENGTH; j++){ // Generate a page reference sequence of length 1000
-                sequence[j] = rand.nextInt(maxPageReference); // page references from 1 to 250
+        for(int simulation = 0; simulation < SEQUENCE_LENGTH; simulation++) {
+            int[] sequence = new int[SEQUENCE_LENGTH];
+            for(int page = 0; page < sequence.length; page++){
+                sequence[page] = rand.nextInt(maxPageReference);
             }
-            TaskFIFO fifo = new TaskFIFO(sequence, i, maxPageReference, pageFaults); // create a FIFO simulation task to simulate FIFO page replacement
-            TaskLRU lru = new TaskLRU(sequence, i, maxPageReference, pageFaults); // Create a LRU simulation task to simulate LRU page replacement
-            TaskMRU mru = new TaskMRU(sequence, i, maxPageReference, pageFaults); // Create a MRU simulation task to simulate MRU page replacement
-            
-            // TODO: use a thread pool ('Executors.newFixedThreadPool') to execute individual simulation tasks.
-            // Create as many workers as there are processors available on the system.
-            ExecutorService executorService = Executors.newFixedThreadPool(nThreads); // Add these tasks to the thread pool for execution
-            fifo.run();
-            lru.run();
-            mru.run();
+
+            for(int frame = 0; frame < maxMemoryFrames; frame++) {
+                TaskFIFO fifo = new TaskFIFO(sequence, frame, maxPageReference, pageFaults);
+                TaskLRU lru = new TaskLRU(sequence, frame, maxPageReference, pageFaults);
+                TaskMRU mru = new TaskMRU(sequence, frame, maxPageReference, pageFaults);
+
+                executor.execute(() -> fifo.run());
+                executor.execute(() -> lru.run());
+                executor.execute(() -> mru.run());
+            }    
         }
-        testLRU();
-        testMRU();
-
-        // for (int page : pageFaults) {
-        //     System.out.println(page);
-        // }
-
-
+        
+        // TODO: summarize results
+    
+        
         // Print total time to do all simulations
         long end = System.currentTimeMillis();
         System.out.printf("Simulation took %d ms\n", (end - start)); 
+        
+        // insure that the threads shut down so the program doesn't hang
+        executor.shutdownNow();
     }
 
     public static void testLRU() {
