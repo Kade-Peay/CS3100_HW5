@@ -11,10 +11,16 @@ public class Assign6 {
         final int nThreads = Runtime.getRuntime().availableProcessors();        
         int maxMemoryFrames = 100; // (input) the number of frames of memory available
         int maxPageReference = 250; // (input) the maximum page reference possible in the sequence        
-        int[] pageFaults = new int[maxMemoryFrames]; // (output) an array used to record the number of page faults that occur each simulation of some number of frames.
         ExecutorService executor = Executors.newFixedThreadPool(nThreads);
         
-                
+        int[] pageFaultsFifo = new int[maxMemoryFrames]; // (output) an array used to record the number of page faults that occur each simulation of some number of frames.
+        int[] pageFaultsLru = new int[maxMemoryFrames];
+        int[] pageFaultsMru = new int[maxMemoryFrames];
+
+        int fifoMinPf = 0;
+        int lruMinPf = 0;
+        int mruMinPf = 0;
+
         long start = System.currentTimeMillis();
         
         for(int simulation = 0; simulation < SEQUENCE_LENGTH; simulation++) {
@@ -24,23 +30,46 @@ public class Assign6 {
             }
 
             for(int frame = 0; frame < maxMemoryFrames; frame++) {
-                TaskFIFO fifo = new TaskFIFO(sequence, frame, maxPageReference, pageFaults);
-                TaskLRU lru = new TaskLRU(sequence, frame, maxPageReference, pageFaults);
-                TaskMRU mru = new TaskMRU(sequence, frame, maxPageReference, pageFaults);
+                TaskFIFO fifo = new TaskFIFO(sequence, frame, maxPageReference, pageFaultsFifo);
+                TaskLRU lru = new TaskLRU(sequence, frame, maxPageReference, pageFaultsLru);
+                TaskMRU mru = new TaskMRU(sequence, frame, maxPageReference, pageFaultsMru);
 
                 executor.execute(() -> fifo.run());
                 executor.execute(() -> lru.run());
                 executor.execute(() -> mru.run());
             }    
-        }
-        
-        // TODO: summarize results
     
-        
+            for(int i = 0; i < maxMemoryFrames; i++) {
+                int f = pageFaultsFifo[i]; // fifo
+                int l = pageFaultsLru[i]; // lru
+                int m = pageFaultsMru[i]; // mru
+    
+                if(f<l) {
+                    if(m<f) {
+                        mruMinPf++;
+                    } else {
+                        fifoMinPf++;
+                    }
+                } else {
+                    if(l<m) {
+                        lruMinPf++;
+                    } else {
+                        mruMinPf++;
+                    }
+                }
+            }
+        }
+
         // Print total time to do all simulations
         long end = System.currentTimeMillis();
-        System.out.printf("Simulation took %d ms\n", (end - start)); 
+        System.out.printf("\nSimulation took %d ms\n\n", (end - start)); 
         
+        
+        System.out.printf("FIFO min PF: %d\n", fifoMinPf);
+        System.out.printf("LRU min PF: %d\n", lruMinPf);
+        System.out.printf("MRU min PF: %d\n", mruMinPf);
+        
+
         // insure that the threads shut down so the program doesn't hang
         executor.shutdownNow();
     }
