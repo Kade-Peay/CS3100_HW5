@@ -5,6 +5,7 @@ import java.util.concurrent.Executors;
 
 public class Assign6 {
     public static void main(String[] args) {
+        long start = System.currentTimeMillis();
         
         Random rand = new Random();
         final int SEQUENCE_LENGTH = 1000;
@@ -13,15 +14,14 @@ public class Assign6 {
         int maxPageReference = 250; // (input) the maximum page reference possible in the sequence        
         ExecutorService executor = Executors.newFixedThreadPool(nThreads);
         
-        int[] pageFaultsFifo = new int[maxMemoryFrames]; // (output) an array used to record the number of page faults that occur each simulation of some number of frames.
-        int[] pageFaultsLru = new int[maxMemoryFrames];
-        int[] pageFaultsMru = new int[maxMemoryFrames];
+        int[] pageFaultsFifo = new int[SEQUENCE_LENGTH]; 
+        int[] pageFaultsLru = new int[SEQUENCE_LENGTH];
+        int[] pageFaultsMru = new int[SEQUENCE_LENGTH];
 
         int fifoMinPf = 0;
         int lruMinPf = 0;
         int mruMinPf = 0;
 
-        long start = System.currentTimeMillis();
         
         for(int simulation = 0; simulation < SEQUENCE_LENGTH; simulation++) {
             int[] sequence = new int[SEQUENCE_LENGTH];
@@ -43,7 +43,7 @@ public class Assign6 {
                 int f = pageFaultsFifo[i]; // fifo
                 int l = pageFaultsLru[i]; // lru
                 int m = pageFaultsMru[i]; // mru
-    
+
                 if(f<l) {
                     if(m<f) {
                         mruMinPf++;
@@ -65,13 +65,39 @@ public class Assign6 {
         System.out.printf("\nSimulation took %d ms\n\n", (end - start)); 
         
         
-        System.out.printf("FIFO min PF: %d\n", fifoMinPf);
-        System.out.printf("LRU min PF: %d\n", lruMinPf);
-        System.out.printf("MRU min PF: %d\n", mruMinPf);
+        System.out.printf("FIFO min PF : %d\n", fifoMinPf);
+        System.out.printf("LRU min PF  : %d\n", lruMinPf);
+        System.out.printf("MRU min PF  : %d\n\n", mruMinPf);
         
+        System.out.println("Belady's Anomaly Report for FIFO");
+        testBelady(pageFaultsFifo);
+
+        System.out.println("Belady's Anomaly Report for LRU");
+        testBelady(pageFaultsLru);
+
+        System.out.println("Belady's Anomaly Report for MRU");
+        testBelady(pageFaultsMru);
 
         // insure that the threads shut down so the program doesn't hang
         executor.shutdownNow();
+    }
+
+    public static void testBelady(int[] pageFaults) {
+        // starting at 1 because you can't check for the previous at 0
+        int anomalies = 0;
+        int maxDif=0;
+        for(int i = 1; i < pageFaults.length; i++) {
+            int previous = pageFaults[i - 1];
+            int current = pageFaults[i];
+
+            if(current > previous) {
+                anomalies++;
+                int diff = current - previous;
+                if(diff > maxDif){maxDif = diff;}
+                System.out.printf("    detected - Previous %d : Current %d (%d)\n", previous, current, diff);
+            }
+        }
+        System.out.printf("        Anomaly detected %d times witha  max difference of %d\n\n", anomalies, maxDif);
     }
 
     public static void testLRU() {
