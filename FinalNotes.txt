@@ -1,0 +1,175 @@
+Module 10: 
+    Definitions:
+        - Community: Biotic(living) members 
+            ~ Plants and animals 
+        - Ecosystem: biotic and abiotic(nonliving) members and parts 
+            ~ Biotic: Plants and animals 
+            ~ Abiotic: Weather, water, mineral soil components, topography
+    
+    Ecosystems are Comprised of Communities - Example:
+        Forest ecosysstem is comprised of the plants and animal communities 
+            - Soil microorganisms up to megaherbivores 
+            - Single-celled plants up to towering trees 
+        
+        The abiotic parts might include the drainages, weather patterns, 
+        lakes and rivers, aspect of the land and terrain type 
+    
+    Ecosystem Properties:
+        - Dynamic 
+        - Scale is important 
+        - Size is difficult to measure 
+        - Boundaries difficult to define 
+        - Generally self-sustaining 
+        - Matter cycles in ecosystems 
+        - energy powers matter cycling 
+        
+    Matter:
+        Matter occupies space and has mass 
+        Matter cycles in an ecosystem 
+        Matter is the atoms and compounds that make up plants and animals 
+
+    Energy:
+        The capacity to do work 
+        Energy moves matter around in an ecosystem 
+        The sun is the source of all past, present, and future energy on the Earth 
+        Energy is NOT cycled in an ecosystem, it is diminished as it moves matter around 
+    
+    Copmlexity and Stability:
+        In general, more complexity equals more stability 
+        If one part of a copmlex web is removed it has less effect than if you remove 
+        one part of a simple web 
+    
+    Niche:
+        Each plant and animal species has a unique role in an excosystem
+        Niche is comprised of dimensions 
+        Number of dimensions is unknown - niches are n-dimensional 
+        Species survive only as long as they compete successfully and are 
+        adapted to the environment 
+        As a result of the above, no two species have exactly the same niche 
+
+    Range of Tolerance:
+        For any environmental dimension, a given species has a range of Tolerance  
+        Groups of species with similar ranges of tolerance form communities 
+
+        Some ranges for dimensions are wide 
+            - Wide range of foods eaten 
+            - If all ranges wide - generalist 
+        
+        Some ranges for dimensions are narrow
+            - Narrow range of foods eaten 
+            - If all ranges narrow - specialist 
+        
+        Management perspective 
+            - Transplants and reintroductions 
+        
+    Patterns in Space: 
+        Ecological equivalents:
+            - Species differ between communities but have similar morphological 
+            and physiological adaptations 
+         For example, softwood forests exist in North and South America, Europe, 
+         Asia, and Australia 
+    
+    Patterns in Time:
+        Succession is the sequential process of change in ecosystems 
+
+    Succession and Communities:
+        Pioneer Community:
+            - First step following distrubance 
+            - Characterized by a turnover species 
+        Climax Community:
+            - Final step following disturbance 
+            - Characterized by a turnover of individuals 
+            - Reaches dynamic equilibrium 
+    
+    Succession Types:
+        Primary:
+            - Majority of life is removed 
+            - Volcano, new island formed, mudslide 
+            - Rare
+        Secondary:
+            - Remnants of previous community exist 
+            - Patchiness of fire 
+    
+Module 11: 
+    Definitions:
+        - All of the plants and animals in an area 
+        - Must consider the interactions 
+        - Scale is important
+        - Levels of diversity are important 
+    
+    Levels of Biodiversity:
+        Genetic: Within a species 
+        Species: Basic unit for study
+        Ecosystem: Between species 
+
+    Reasons to Maintain Biodiversity:
+        - Ethical/Aesthetic
+        - Economic Benefits
+        - Ecological Interactions 
+
+        - All of these are connected 
+    
+    Ethical/Aesthetic:
+        - Human moral obligation 
+        - Humans are part of the system 
+        - Lack of understanding of system 
+    
+    Economic Benefits:
+        - Domesticated stock came from wild 
+        - Plants and animals 
+        - Medicines 
+        - Food - fish 
+        - Natural products - wood 
+
+    Ecological Interactions:
+        - Oxygen cycle 
+        - Nitrogen cycle 
+        - Hydrologic cycle 
+        - Pollination 
+        - Soil formation 
+        - Decomposers 
+
+Module 12:
+    Recall: 
+        Genotype: the genetic constitution of an individual organism
+        Phenotype: the set of observable characteristics of an individual resulting 
+            from the interaction of its genotype with the environment
+
+        Basically the genotype is the actual things passed down and the phenotype are just the characteristics
+
+        Sexual vs Asexual: asexual reproduction generates offspring that are genetically identical
+        to a single parent. In sexual reproduction, the two parents contribute genetic information 
+        to produce unique offspring
+    
+    Introduction to Genetics:
+        Cells are the fundamental working units of every living system 
+        
+        DNA from all organisms is made up of the same chemical and physical components 
+        
+        The DNA sequence is the particular side-by-side arrangement of bases along the DNA strand on a chromosome 
+        
+        Each chromosome contains many genes, the basic physical and functional units of heredity 
+        
+        Proteins perform most life functions and even make up the majority of cellular structures
+
+    Ethical Concerns:
+        Fairness in the use of genetic information 
+
+        Privacy and confidentiality 
+
+        Psychological impact and stigmatization 
+
+        Reproductive issues 
+
+        Clinical issues 
+
+        Uncertainties associated with gene tests 
+
+        Conceptual and philosophical implications 
+
+Module 13:
+    WATCH THE VIDEO AGAIN AND TAKE NOTES 
+    SHOULD HAVE DONE THAT THE FIRST TIME DUMBASS
+
+Module 14:
+    
